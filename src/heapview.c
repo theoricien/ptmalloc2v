@@ -14,7 +14,9 @@
  * heap_end is just free()-ing all the stuff allocated by heap_init.
  */
 
-#define OFF_MAIN_ARENA 0x46150
+
+// __GI___libc_malloc - &main_arena
+#define OFF_MAIN_ARENA -0x1378f0
 
 struct ptm2v_info *
 heap_init (void)
@@ -39,19 +41,24 @@ heap_view (struct ptm2v_info * info)
 {
     int    err;
     void   *(*r_malloc) (size_t);
-    void   *main_arena;
+    long   *main_arena;
+
+    char buf[65];
+    fgets(buf, 65, stdin);
 
     err = 0;
     r_malloc = NULL;
-    r_malloc = dlsym(RTDL_NEXT, "malloc");
+    r_malloc = dlsym(RTLD_NEXT, "malloc");
     ptassertdl(r_malloc != NULL);
 
     main_arena = r_malloc + OFF_MAIN_ARENA;
     printf("malloc: %p\nmain_arena: %p\n", r_malloc, main_arena);
-    for (addr_t ptr = info->heap_base; ptr < info->heap_base + 1000; ptr += sizeof(addr_t))
+    for (int i = 0; i < 10; i++)
+        printf("*main_arena+%d = 0x%08lx\n", i, main_arena[i]);
+/*    for (addr_t ptr = info->heap_base; ptr < info->heap_base + 1000; ptr += sizeof(addr_t))
     {
         print_mem(ptr, (addr_t) *(long long *)ptr);
-    }
+    }*/
 
     return err;
 }

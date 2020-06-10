@@ -32,7 +32,7 @@ ptassertdl (int expr)
 {
 	if (!expr)
 	{
-        fprintf(stderr, "[DLError]: %s\n", dlerror(errno));
+        fprintf(stderr, "[DLError]: %s\n", dlerror());
 		exit(2);
 	}
 }
