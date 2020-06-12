@@ -5,6 +5,7 @@
 #include "structs.h"
 
 int print_mem (addr_t, addr_t);
+void print_chunk (long *);
 void print_malloc_chunk (struct malloc_chunk *);
 void print_malloc_state (struct malloc_state *);
 
