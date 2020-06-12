@@ -50,6 +50,13 @@ heap_view (struct ptm2v_info * info)
     err = 0;
     print_malloc_state(info->main_arena);
 
+    for (long *i = info->heap_base;
+         i < info->main_arena->top;
+         i += 1)
+    {
+        printf("0x%.*lx - [0x%.*lx]\n", sizeof(long) * 2, i, sizeof(long) * 2, *i);
+    }
+
     return err;
 }
 
