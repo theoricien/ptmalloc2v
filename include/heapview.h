@@ -1,9 +1,19 @@
 #ifndef _HEAPVIEW_H
 #define _HEAPVIEW_H
 
+// For RTLD_NEXT
+#define _GNU_SOURCE
+
+// For malloc, free
 #include <stdlib.h>
+
+// For NULL
 #include <stdio.h>
 #include <unistd.h>
+
+// For dlsym() 
+#include <dlfcn.h>
+
 #include "ptassert.h"
 #include "printer.h"
 #include "structs.h"

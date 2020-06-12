@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <dlfcn.h>
 #include "heapview.h"
 
 int
@@ -8,7 +9,6 @@ main (int   argc,
 {
     struct ptm2v_info * tmp = heap_init();
 
-    printf("MALLOC_RET: %p\n", malloc(4));
     heap_view(tmp);
     // stuff
 

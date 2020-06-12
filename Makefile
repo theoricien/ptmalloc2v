@@ -1,5 +1,5 @@
 CC		= gcc
-CFLAGS	= -Wall -O3 -g
+CFLAGS	= -Wall -O3 -g -ldl
 EXEC	= ptmalloc2v
 
 OBJ_DIR = obj
@@ -17,10 +17,10 @@ $(EXEC):
 	$(CC) -I$(INC_DIR) $(CFLAGS) $(OBJ_DIR)/* tests/main.c -o $(BIN_DIR)/$(EXEC)
 
 objects:
-	$(CC) -I$(INC_DIR) -c $(SRC_DIR)/structs.c  -o $(OBJ_DIR)/structs.o
-	$(CC) -I$(INC_DIR) -c $(SRC_DIR)/ptassert.c -o $(OBJ_DIR)/ptassert.o
-	$(CC) -I$(INC_DIR) -c $(SRC_DIR)/printer.c  -o $(OBJ_DIR)/printer.o
-	$(CC) -I$(INC_DIR) -c $(SRC_DIR)/heapview.c -o $(OBJ_DIR)/heapview.o
+	$(CC) -I$(INC_DIR) $(CFLAGS) -c $(SRC_DIR)/structs.c  -o $(OBJ_DIR)/structs.o
+	$(CC) -I$(INC_DIR) $(CFLAGS) -c $(SRC_DIR)/ptassert.c -o $(OBJ_DIR)/ptassert.o
+	$(CC) -I$(INC_DIR) $(CFLAGS) -c $(SRC_DIR)/printer.c  -o $(OBJ_DIR)/printer.o
+	$(CC) -I$(INC_DIR) $(CFLAGS) -c $(SRC_DIR)/heapview.c -o $(OBJ_DIR)/heapview.o
 
 clean:
 	-rm -r $(BIN_DIR) 2>/dev/null

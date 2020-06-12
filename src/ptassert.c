@@ -21,8 +21,18 @@ ptasserte (int expr)
 {
 	if (!expr)
 	{
-        printf("[Errno]: %s\n", strerror(errno));
+        fprintf(stderr, "[Errno]: %s\n", strerror(errno));
         perror("[Perror]: ");
+		exit(2);
+	}
+}
+
+void
+ptassertdl (int expr)
+{
+	if (!expr)
+	{
+        fprintf(stderr, "[DLError]: %s\n", dlerror());
 		exit(2);
 	}
 }
