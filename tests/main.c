@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <dlfcn.h>
-#include "heapview.h"
+
+#include "libptm2v.h"
 
 int
 main (int   argc,
@@ -9,21 +10,23 @@ main (int   argc,
 {
     struct ptm2v_info * tmp = heap_init();
 
-    int *a = malloc(sizeof(int));
+    int *a = malloc(4);
     *a = 0x41424344;
 
-    int *b = malloc(sizeof(int));
+    int *b = malloc(8);
     *b = 0xAAAAAAAA;
 
-    int *c = malloc(sizeof(int));
-    *c = 0xBBBBBBBB;
+    int *e = malloc(16);
 
-    heap_view(tmp);
-    // stuff
+    int *c = malloc(32);
+    for (int i = 0; i < 32/sizeof(int); i++)
+    {
+        c[i] = 0xBBBBBBBB;
+    }
 
-    print_chunk((long *)a);
-    print_chunk((long *)b);
-    print_chunk((long *)c);
+    int *f = malloc(64);
+
+    heap_view(tmp, DEFAULT_FLAGS, ptm2v_array(a, b, c, e, f), 5, stdout);
 
     heap_end(&tmp);
     return EXIT_SUCCESS;
