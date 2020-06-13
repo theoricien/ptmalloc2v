@@ -26,7 +26,7 @@ make
 ```  
 Your `.a` file will be in `libs/` directory.
 
-## Example (from tests/main.c)
+## Example
 
 ```C
 #include <stdio.h>
