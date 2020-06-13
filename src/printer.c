@@ -14,16 +14,13 @@ void
 print_chunk (long *chunk)
 {
     long *real_chunk    = chunk - 1;
-    size_t prev_size      = *(chunk - 0x16);
     int prev_inuse      = *real_chunk & 0x1;
     int is_mmapped      = *real_chunk & 0x2;
     int non_main_arena  = *real_chunk & 0x4;
-    size_t size         = *real_chunk >> 3;
+    size_t size         = *real_chunk - 0x11;
 
-    printf("%p\t[prev_size: %lu]\n"
-           "\t\t[size: %lu, N: %d, M: %d, P: %d]\n",
+    printf("%p\t[size: %lu, N: %d, M: %d, P: %d]\n",
         chunk,
-        prev_size,
         size,
         non_main_arena,
         is_mmapped,
