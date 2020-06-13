@@ -10,31 +10,28 @@ heap_init() -> struct ptm2v_info *: Just initialize and setup everything to get 
 `
 #
 `
-heap_view(struct ptm2v_info *): Print everything, in the future there'll be some constants and just binary-OR them to get the results you want, like "heap_view(info, MAIN_ARENA | BINS_ALL | ...);"
+heap_view(struct ptm2v_info *, struct ptm2v_flag, long **chunks, size_t len_chunks, FILE *fd):
+It is the very big function that print all the data you want to print"
 `
 #
 `
 heap_end(struct ptm2v_info *): Just free properly what's in the structure
 `
 
-## ! Warning !
-
-For the moment, the library isn't installing hisself.  
-The Makefile is only for tests/ programs.  
-In the future, you'll juste need to do a `make` to install everything.
-
 ## Installation
 
 ```bash
 git clone https://github.com/theoricien/ptmalloc2v
-```
+make
+```  
+Your `.a` file will be in `libs/` directory.
 
 ## Example (from tests/main.c)
 
 ```C
 #include <stdio.h>
 #include <stdlib.h>
-#include "heapview.h"
+#include "libptm2v.h"
 
 int
 main (int   argc,
@@ -44,7 +41,7 @@ main (int   argc,
     struct ptm2v_info * tmp = heap_init();
 
     // code
-    heap_view(tmp);
+    heap_view(tmp, DEFAULT_FLAGS, NULL, 0, stdout);
     // code
 
     // End/free stuff
