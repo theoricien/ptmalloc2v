@@ -3,11 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-
-extern const int __ADDR_SIZE;
-
-// Define the address type, we just can't read the referenced value
-typedef void * addr_t;
+#include "arch/config.h"
 
 /* ptmalloc2 structs re-implementation from malloc.c source code */
 
@@ -36,8 +32,8 @@ struct malloc_state
     mchunkptr       bins[254];
     unsigned int    binmap[4];
 
-    struct malloc_state *next;
-    struct malloc_state *next_free;
+    struct malloc_state * next;
+    struct malloc_state * next_free;
 
     size_t  attached_threads;
     size_t  system_mem;

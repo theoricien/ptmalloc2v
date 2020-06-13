@@ -18,16 +18,17 @@
 #include "printer.h"
 #include "structs.h"
 #include "utils.h"
+#include "arch/config.h"
 
 #define DEFAULT_PRINTING_FILE stdout;
 
 struct ptm2v_info * heap_init   (void);
 
-int               heap_view     (struct ptm2v_info   *,
+int               heap_view    (struct ptm2v_info   *,
                                 struct ptm2v_flags,
-                                long                 **,
+                                addr_t              *,
                                 size_t,
-                                FILE                 *);
+                                FILE                *);
 
 void              heap_end    (struct ptm2v_info **);
 

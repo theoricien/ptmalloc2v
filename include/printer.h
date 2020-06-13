@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "structs.h"
+#include "arch/config.h"
 
 /*
  * printer.h header file consist of
@@ -18,7 +19,7 @@ FILE * __PRINTING_FILE;
 int print_mem (addr_t, addr_t);
 
 // Print an allocated chunk with future fd & bk value
-void print_chunk (long *);
+void print_chunk (addr_t);
 
 // Print the usual chunk as described in malloc.c
 void print_malloc_chunk (struct malloc_chunk *);

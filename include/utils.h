@@ -3,7 +3,8 @@
 
 #include <stdlib.h>
 #include <stdarg.h>
+#include "arch/config.h"
 
-long ** ptm2v_array (long *, ...);
+addr_t * ptm2v_array (addr_t, ...);
 
 #endif // _UTILS_H

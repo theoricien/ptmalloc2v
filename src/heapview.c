@@ -17,9 +17,6 @@
 // From include/printer.h
 extern FILE * __PRINTING_FILE;
 
-// __GI___libc_malloc + OFFSET = &main_arena
-#define OFF_MAIN_ARENA 0x1378f0
-
 struct ptm2v_info *
 heap_init (void)
 {
@@ -43,6 +40,8 @@ heap_init (void)
     info = (struct ptm2v_info *) malloc (sizeof (struct ptm2v_info));
     ptasserte (info != NULL);
 
+    printf("----> %p\n", r_malloc);
+    printf("main_arena = r_malloc + 0x%x\n", OFF_MAIN_ARENA);
     info->main_arena    = r_malloc + OFF_MAIN_ARENA;
     info->heap_base     = heap_base;
     info->free          = _ptm2v_info_free;
@@ -53,7 +52,7 @@ heap_init (void)
 int
 heap_view (struct ptm2v_info    * info,                 // struct returned by heap_init
            struct ptm2v_flags   flags,                  // flags for customizable printing
-           long                 ** array_of_chunks,     // chunks you want to print, NULL else
+           addr_t               * array_of_chunks,     // chunks you want to print, NULL else
            size_t               len_array_of_chunks,    // length of the array above
            FILE                 * fd)                   // printing file, NULL/stdout for stdout
 {
