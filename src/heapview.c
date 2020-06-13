@@ -40,8 +40,6 @@ heap_init (void)
     info = (struct ptm2v_info *) malloc (sizeof (struct ptm2v_info));
     ptasserte (info != NULL);
 
-    printf("----> %p\n", r_malloc);
-    printf("main_arena = r_malloc + 0x%x\n", OFF_MAIN_ARENA);
     info->main_arena    = r_malloc + OFF_MAIN_ARENA;
     info->heap_base     = heap_base;
     info->free          = _ptm2v_info_free;
