@@ -13,6 +13,7 @@ print_mem (addr_t addr,
 void
 print_chunk (long *chunk)
 {
+    /* These variables are obtained from malloc.c documentation */
     long *real_chunk    = chunk - 1;
     int prev_inuse      = *real_chunk & 0x1;
     int is_mmapped      = *real_chunk & 0x2;

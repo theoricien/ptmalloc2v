@@ -6,9 +6,10 @@
 
 extern const int __ADDR_SIZE;
 
+// Define the address type, we just can't read the referenced value
 typedef void * addr_t;
 
-/* ptmalloc2 structs re-implementation */
+/* ptmalloc2 structs re-implementation from malloc.c source code */
 
 struct malloc_chunk
 {
@@ -45,15 +46,17 @@ struct malloc_state
 
 /* own structs for easier representation & manipulation */
 
+// Define the needed heap informations
 struct ptm2v_info
 {
-    addr_t heap_base;
+    addr_t heap_base;                   // Base address of the heap, obtained by a sbrk(0)
 
-    struct malloc_state * main_arena;
+    struct malloc_state * main_arena;   // main_arena struct, manage the heap globally
 
-    void (*free) (struct ptm2v_info *);
+    void (*free) (struct ptm2v_info *); // function to free the struct itself
 };
 
+// flag_t is just for know if a flag is enable(y) or disable(n)
 typedef enum {n = 0, y = 1} flag_t;
 
 struct ptm2v_flags

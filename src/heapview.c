@@ -30,9 +30,12 @@ heap_init (void)
     // As a default value
     __PRINTING_FILE = DEFAULT_PRINTING_FILE;
 
+    // We get the base of the heap with that
+    // DONT MALLOC BEFORE THIS
     heap_base = sbrk (0);
     ptasserte (heap_base != (void *) -1);
 
+    // Get the real_malloc address (in libc mmapped region)
     r_malloc = NULL;
     r_malloc = dlsym(RTLD_NEXT, "malloc");
     ptassertdl(r_malloc != NULL);
@@ -48,31 +51,36 @@ heap_init (void)
 }
 
 int
-heap_view (struct ptm2v_info    * info,
-           struct ptm2v_flags   flags,
-           long                 ** array_of_chunks,
-           size_t               len_array_of_chunks,
-           FILE                 * fd)
+heap_view (struct ptm2v_info    * info,                 // struct returned by heap_init
+           struct ptm2v_flags   flags,                  // flags for customizable printing
+           long                 ** array_of_chunks,     // chunks you want to print, NULL else
+           size_t               len_array_of_chunks,    // length of the array above
+           FILE                 * fd)                   // printing file, NULL/stdout for stdout
 {
     int    err;
 
-    __PRINTING_FILE = fd;
+    if (fd != NULL)
+        __PRINTING_FILE = fd;
 
     err = 0;
 
+    // Dump the heap from info->heap_base to info->main_arena->top
+    // (which is all the user heap dedicated area)
     if (flags.dump_heap)
     {
         for (long *i = info->heap_base;
              i < info->main_arena->top;
-             i += 1)
+             i += 1) // incrementing the address
         {
             print_mem((addr_t)i, (addr_t)(*i));
         }
     }
 
+    // Dump the main_arena variable
     if (flags.main_arena)
         print_malloc_state(info->main_arena, flags.minimalist_arrays);
 
+    // Print all the chunks you refers to (from array_of_chunks argument)
     for (size_t i = 0; i < len_array_of_chunks; i++)
     {
         print_chunk(array_of_chunks[i]);
