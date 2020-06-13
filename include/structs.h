@@ -54,4 +54,13 @@ struct ptm2v_info
     void (*free) (struct ptm2v_info *);
 };
 
+typedef enum {n = 0, y = 1} flag_t;
+
+struct ptm2v_flags
+{
+    flag_t main_arena;          /* Print main_arena values */
+    flag_t minimalist_arrays;   /* Print only if the array size is <= 10 */
+    flag_t dump_heap;           /* Print from heap_base to main_arena->top */
+};
+
 #endif // _STRUCTS_H

@@ -14,6 +14,8 @@
  * heap_end is just free()-ing all the stuff allocated by heap_init.
  */
 
+// From include/printer.h
+extern FILE * __PRINTING_FILE;
 
 // __GI___libc_malloc + OFFSET = &main_arena
 #define OFF_MAIN_ARENA 0x1378f0
@@ -24,6 +26,9 @@ heap_init (void)
     struct ptm2v_info   * info;
     void                *(*r_malloc) (size_t);
     void                * heap_base;
+
+    // As a default value
+    __PRINTING_FILE = DEFAULT_PRINTING_FILE;
 
     heap_base = sbrk (0);
     ptasserte (heap_base != (void *) -1);
@@ -43,18 +48,34 @@ heap_init (void)
 }
 
 int
-heap_view (struct ptm2v_info * info)
+heap_view (struct ptm2v_info    * info,
+           struct ptm2v_flags   flags,
+           long                 ** array_of_chunks,
+           size_t               len_array_of_chunks,
+           FILE                 * fd)
 {
     int    err;
 
-    err = 0;
-    print_malloc_state(info->main_arena);
+    __PRINTING_FILE = fd;
 
-    for (long *i = info->heap_base;
-         i < info->main_arena->top;
-         i += 1)
+    err = 0;
+
+    if (flags.dump_heap)
     {
-        printf("0x%.*lx - [0x%.*lx]\n", sizeof(long) * 2, i, sizeof(long) * 2, *i);
+        for (long *i = info->heap_base;
+             i < info->main_arena->top;
+             i += 1)
+        {
+            print_mem((addr_t)i, (addr_t)(*i));
+        }
+    }
+
+    if (flags.main_arena)
+        print_malloc_state(info->main_arena, flags.minimalist_arrays);
+
+    for (size_t i = 0; i < len_array_of_chunks; i++)
+    {
+        print_chunk(array_of_chunks[i]);
     }
 
     return err;

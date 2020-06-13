@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <dlfcn.h>
 
+#include "libptm2v.h"
+
 int
 main (int   argc,
       char  * argv [])
@@ -24,23 +26,7 @@ main (int   argc,
 
     int *f = malloc(64);
 
-    //heap_view(tmp);
-    // stuff
-
-    print_chunk((long *)a);
-    print_chunk((long *)b);
-    print_chunk((long *)e);
-    print_chunk((long *)c);
-    print_chunk((long *)f);
-
-    /*free(b);
-    free(c);
-
-    print_chunk((long *)a);
-    print_chunk((long *)b);
-    print_chunk((long *)c);*/
-
-    heap_view(tmp);
+    heap_view(tmp, DEFAULT_FLAGS, ptm2v_array(a, b, c, e, f), 5, stdout);
 
     heap_end(&tmp);
     return EXIT_SUCCESS;

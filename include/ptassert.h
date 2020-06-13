@@ -8,8 +8,8 @@
 #include <stdarg.h>
 #include <string.h>
 
-void ptassert  (int, const char *, ...);
-void ptasserte (int);
+void ptassert   (int, const char *, ...);
+void ptasserte  (int);
 void ptassertdl (int);
 
 #endif // _PTASSERT_H
