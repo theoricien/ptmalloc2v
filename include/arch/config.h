@@ -2,6 +2,7 @@
 #define _CONFIG_H
 
 #include <stdint.h>
+#include <stdlib.h>
 
 #if __GNUC__
 // If GCC

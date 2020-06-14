@@ -28,6 +28,8 @@ int               heap_view    (struct ptm2v_info   *,
                                 struct ptm2v_flags,
                                 addr_t              *,
                                 size_t,
+                                addr_t              *,
+                                size_t,
                                 FILE                *);
 
 void              heap_end    (struct ptm2v_info **);

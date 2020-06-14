@@ -7,6 +7,7 @@
 
 /* ptmalloc2 structs re-implementation from malloc.c source code */
 
+// Useless in the code for the moment..
 struct malloc_chunk
 {
     size_t  mchunk_prev_size;
@@ -60,6 +61,7 @@ struct ptm2v_flags
     flag_t main_arena;          /* Print main_arena values */
     flag_t minimalist_arrays;   /* Print only if the array size is <= 10 */
     flag_t dump_heap;           /* Print from heap_base to main_arena->top */
+    flag_t previsions;          /* Print the future value of a non-declared/defined variable like fd & bk on an allocated chunk */
 };
 
 #endif // _STRUCTS_H
