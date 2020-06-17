@@ -26,15 +26,7 @@ main (int   argc,
 
     int *f = malloc(64);
 
-    heap_view(tmp, ONLY_CHUNKS, ptm2v_array(a, b, c, e, f), 5, NULL, 0, stdout);
-
-    free(a);
-    free(b);
-    free(c);
-    free(f);
-    free(e);
-
-    heap_view(tmp, ONLY_CHUNKS, NULL, 0, ptm2v_array(a, b, c, e, f), 5, stdout);
+    heap_view(tmp, ALL_FLAGS, ptm2v_array(a, b, c, e, f), 5, NULL, 0, stdout);
 
     heap_end(&tmp);
     return EXIT_SUCCESS;

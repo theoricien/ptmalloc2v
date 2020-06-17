@@ -40,9 +40,12 @@ heap_init (void)
 	info = (struct ptm2v_info *) malloc (sizeof (struct ptm2v_info));
 	ptasserte (info != NULL);
 
-	info->main_arena       = r_malloc + OFF_MAIN_ARENA;
-	info->heap_base        = heap_base;
-	info->free             = _ptm2v_info_free;
+	printf("R_MALLOC: %p\n", r_malloc);
+
+	info->main_arena       	= r_malloc + OFF_MAIN_ARENA;
+	info->heap_base        	= heap_base;
+	info->tcache		= info->heap_base + OFF_TCACHE;
+	info->free             	= _ptm2v_info_free;
 
 	return info;
 }
@@ -81,6 +84,13 @@ heap_view (struct ptm2v_info	* info,                         // struct returned 
 	{
 		fprintf(__PRINTING_FILE, "\n----- main_arena Dump -----\n");
 		print_malloc_state(info->main_arena, flags.minimalist_arrays);
+	}
+
+	// Dump the tcache variable
+	if (flags.tcache)
+	{
+		fprintf(__PRINTING_FILE, "\n----- tcache Dump -----\n");
+		print_tcache(info, flags.minimalist_arrays);
 	}
 
 	// Print all the in-use chunks you refers to (from array_of_inuse_chunks argument)

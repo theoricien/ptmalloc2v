@@ -4,6 +4,19 @@
 #include <stdint.h>
 #include <stdlib.h>
 
+/*
+ * = heap_base + 0x10
+ * GDB won't allow you to print any information about tcache
+ * PwnDBG do.
+ * Steps to reproduce to re-find this offset:
+ * -Install PwnDBG
+ * -break at the end of main & run
+ * -pwndbg> info proc mapping // Take the heap base
+ * -pwndbg> tcache
+ * -pwndbg> find <[heap] base>,+99999,<info of tcache>
+ */
+#define OFF_TCACHE 0x10
+
 #if __GNUC__
 // If GCC
 #if __X86_64__ || __ppc64__ || _____LP64_____  || UINTPTR_MAX == 0xffffffffffffffff
