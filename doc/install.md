@@ -10,7 +10,7 @@ ptmalloc2v is only available for GNU/Linux OS. I can't guarantee the well work o
 
 You need to have GCC for 64 and/or 32  bits with libc Debug Mode. So make sure you have these, else, just follow this command
 ```Bash
-make install
+sudo make install
 ```
 Or, if you want to do it by hand
 ```Bash

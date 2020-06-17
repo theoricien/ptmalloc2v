@@ -7,13 +7,17 @@ This little library is really simple to use and just print some heap info.
 
 ```bash
 git clone https://github.com/theoricien/ptmalloc2v
-make
+sudo make install && make
 ```  
 Your `.a` file will be in `libs/` directory.
 
 ## Usage
 
-You can refer to `doc/` directory, there is some useful explainations about the library
+You can refer to `doc/` directory, there is some useful explainations about the library  
+The principle is simple, there are 3 functions: `heap_init`, `heap_view` and `heap_end`:  
+`heap_init` needs to be call before any use of the heap  
+`heap_view` can be used undefinitely to print heap content you want  
+`heap_end` is optional, but free the ptm2v_info structure properly  
 
 ## Example
 
@@ -30,7 +34,7 @@ main (int   argc,
     struct ptm2v_info * tmp = heap_init();
 
     // code
-    heap_view(tmp, DEFAULT_FLAGS, NULL, 0, stdout);
+    heap_view(tmp, DEFAULT_FLAGS, NULL, 0, NULL, 0, stdout);
     // code
 
     // End/free stuff

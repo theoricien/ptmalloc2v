@@ -1,4 +1,4 @@
-CC	= gcc
+CC		= gcc
 CFLAGS	= -Wall -O3 -g
 EXEC	= test
 
@@ -14,6 +14,10 @@ INC_DIR	= include
 TST_DIR = tests
 
 all: setup objects static_lib
+
+install:
+	sudo apt-get install -y update
+	sudo apt-get install -y build-essential libc-dbg:i386 libc-dbg:adm64 gcc-multilib
 
 setup:
 	-mkdir $(OBJ_DIR) 2>/dev/null
