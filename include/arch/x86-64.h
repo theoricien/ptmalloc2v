@@ -4,6 +4,7 @@
 #define AMD64
 
 #define __ADDR_SIZE 16
+#define MIN_CHUNK_SIZE 16
 
 // __GI___libc_malloc + OFFSET = &main_arena
 #define OFF_MAIN_ARENA 0x1378f0

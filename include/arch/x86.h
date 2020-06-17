@@ -4,6 +4,7 @@
 #define I386
 
 #define __ADDR_SIZE 8
+#define MIN_CHUNK_SIZE 8
 
 // __GI___libc_malloc + OFFSET = &main_arena
 #define OFF_MAIN_ARENA 0x15e8f0

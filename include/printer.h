@@ -3,7 +3,10 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdarg.h>
+
 #include "structs.h"
+#include "utils.h"
 #include "arch/config.h"
 
 /*
@@ -19,7 +22,10 @@ FILE * __PRINTING_FILE;
 void __print_indent (size_t);
 
 // Print a memory cell: [address, value]
-int print_mem (addr_t, addr_t);
+void print_mem (addr_t, addr_t);
+
+// Make printf great again with an indented one !
+void ivprintf (size_t, const char *, ...);
 
 // Print an allocated chunk with future fd & bk value if needed
 void print_inuse_chunk (addr_t, flag_t);

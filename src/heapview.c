@@ -40,8 +40,6 @@ heap_init (void)
 	info = (struct ptm2v_info *) malloc (sizeof (struct ptm2v_info));
 	ptasserte (info != NULL);
 
-	printf("R_MALLOC: %p\n", r_malloc);
-
 	info->main_arena       	= r_malloc + OFF_MAIN_ARENA;
 	info->heap_base        	= heap_base;
 	info->tcache		= info->heap_base + OFF_TCACHE;
@@ -71,9 +69,9 @@ heap_view (struct ptm2v_info	* info,                         // struct returned 
 	if (flags.dump_heap)
 	{
 		fprintf(__PRINTING_FILE, "\n----- Heap Dump -----\n");
-		for (long *i = info->heap_base;
-			 i < info->main_arena->top;
-			 i += 1) // incrementing the address
+		for (addr_t i = info->heap_base;
+			i < info->main_arena->top;
+			i++) // incrementing the address
 		{
 			print_mem((addr_t)i, (addr_t)(*i));
 		}
